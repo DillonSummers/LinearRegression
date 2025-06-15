@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Iterable, Sequence
+from typing import Iterable
 import joblib
 
 import matplotlib.pyplot as plt
@@ -138,26 +138,35 @@ def train(df: pd.DataFrame, target: str, model_path: Path, plots_dir: Path) -> N
     joblib.dump(model, model_path)
 
 
-def train_all(df: pd.DataFrame, targets: Sequence[str], models_dir: Path, plots_dir: Path) -> None:
-    """Trains models for multiple targets."""
+def train_all(
+    df: pd.DataFrame,
+    target_map: dict[str, str],
+    models_dir: Path,
+    plots_dir: Path,
+) -> None:
+    """Trains models for multiple targets.
+
+    Args:
+        df: Feature dataframe.
+        target_map: Mapping from target column name to simplified alias.
+        models_dir: Directory for model artifacts.
+        plots_dir: Directory for generated plots.
+    """
     models_dir.mkdir(parents=True, exist_ok=True)
-    for target in targets:
-        name = target.replace(" ", "_").lower()
-        train(df, target, models_dir / f"lr_{name}.joblib", plots_dir / name)
+    for target, alias in target_map.items():
+        train(df, target, models_dir / f"lr_{alias}.joblib", plots_dir / alias)
 
 
 def main() -> None:
     """Entry point for CLI usage."""
     df = pd.read_csv("data/combined_feature.csv")
-    target_cols = [
-        "Area AVG",
-        "Area STD",
-        "RG AVG",
-        "RG STD",
-        "RDF Peak",
-        "Coordination at Minimum",
-    ]
-    train_all(df, target_cols, Path("models"), Path("plots"))
+    targets = {
+        "Area AVG": "area",
+        "RG AVG": "rg",
+        "RDF Peak": "rdf",
+        "Coordination at Minimum": "coor",
+    }
+    train_all(df, targets, Path("models"), Path("plots"))
 
 
 if __name__ == "__main__":
