@@ -17,12 +17,7 @@ from sklearn.model_selection import KFold, cross_val_predict
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer, PowerTransformer, StandardScaler
 
-
-def shifted_log1p(arr: np.ndarray) -> np.ndarray:
-    """Applies a log1p transform after shifting to avoid negatives."""
-    shift = (-np.minimum(0, arr.min(axis=0))) + 1
-    return np.log1p(arr + shift)
-
+from features import shifted_log1p
 
 def build_preprocessor(columns: Iterable[str]) -> ColumnTransformer:
     """Builds the preprocessing transformer for the model."""

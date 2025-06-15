@@ -7,7 +7,7 @@ from pathlib import Path
 import joblib
 import pandas as pd
 
-from features import feature_dataframe_from_string
+from features import feature_dataframe_from_string, shifted_log1p
 
 TARGET_MAP = {
     "area_avg": "Area AVG",

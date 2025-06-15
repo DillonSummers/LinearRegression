@@ -12,6 +12,12 @@ import pandas as pd
 import seaborn as sns
 
 
+def shifted_log1p(arr: np.ndarray) -> np.ndarray:
+    """Applies ``log1p`` after shifting array to eliminate negatives."""
+    shift = (-np.minimum(0, arr.min(axis=0))) + 1
+    return np.log1p(arr + shift)
+
+
 def parse_vectors(s: str) -> list[int]:
     """Parses encoded vectors from the dataset.
 
