@@ -183,22 +183,21 @@ def harwoods_blockiness(values: Iterable[int]) -> float:
     return (p_aa - p_a) / (1 - p_a)
 
 
-def mayo_lewis(values: Iterable[int], r1: float, r2: float) -> Optional[float]:
+def mayo_lewis(values: Iterable[int], r1: float, r2: float) -> float:
     """Mayo-Lewis reactivity ratio."""
     n = len(list(values))
     if n == 0:
-        return None
+        return 0.0
     count_m1 = sum(1 for v in values if v > 0)
     count_m2 = sum(1 for v in values if v < 0)
     if count_m2 == 0:
-        return None
+        return 0.0
     m1 = count_m1 / n
     m2 = count_m2 / n
     denominator = m2 * (r2 * m2 + m1)
     if denominator == 0:
-        return None
+        return 0.0
     return (m1 * (r1 * m1 + m2)) / denominator
-
 
 
 def add_features(df: pd.DataFrame) -> pd.DataFrame:
