@@ -5,17 +5,14 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 import joblib
-import pandas as pd
 
-from features import feature_dataframe_from_string, shifted_log1p
+from features import feature_dataframe_from_string
 
 TARGET_MAP = {
-    "area_avg": "Area AVG",
-    "area_std": "Area STD",
-    "rg_avg": "RG AVG",
-    "rg_std": "RG STD",
-    "rdf_peak": "RDF Peak",
-    "coordination": "Coordination at Minimum",
+    "area": "Area AVG",
+    "rg": "RG AVG",
+    "rdf": "RDF Peak",
+    "coor": "Coordination at Minimum",
 }
 
 
