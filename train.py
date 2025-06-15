@@ -73,7 +73,7 @@ def train(df: pd.DataFrame, target: str, model_path: Path, plots_dir: Path) -> N
         ("lr", LinearRegression()),
     ])
 
-    cv = KFold(n_splits=10, shuffle=True, random_state=42)
+    cv = KFold(n_splits=5, shuffle=True, random_state=42)
     y_pred = cross_val_predict(model, X, y, cv=cv)
 
     rmse = np.sqrt(mean_squared_error(y, y_pred))
