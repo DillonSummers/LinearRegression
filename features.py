@@ -310,8 +310,8 @@ def plot_correlations(df: pd.DataFrame, save_dir: str) -> None:
 
 def main() -> None:
     """Entry point to generate features and plots."""
-    df = create_feature_dataframe("data/combined.csv")
-    save_feature_dataframe(df, "data/combined_feature.csv")
+    df = create_feature_dataframe("data/15polymers.csv")
+    save_feature_dataframe(df, "data/15polymers_feature.csv")
     plot_correlations(df, "plots")
 
 
